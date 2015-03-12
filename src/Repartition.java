@@ -45,7 +45,6 @@ public class Repartition {
         }
         
         Integer[] puissances = state.get(-1);
-        System.out.println(state.get(-1)[3]);
         for (int r = 0; r < d.rangees; r ++) {
             int p = 0;
             for (int e = 0; e < d.emplacements;) {
@@ -57,7 +56,6 @@ public class Repartition {
             }
             
             puissances[r] = p;
-            System.out.println(puissances[d.rangees]);
             puissances[d.rangees] += p;
         }
         

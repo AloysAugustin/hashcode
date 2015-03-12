@@ -18,8 +18,9 @@ public class Main {
         d.print_grille();
         System.out.println("Blouh 2");
 
-        System.out.println("Rangees : " + d.rangees);
+
         Repartition.try1(d);
+        Output.out(d, "result.txt");
 
         Optim.data = d;
         Optim.optim();

@@ -20,8 +20,9 @@ public class Main {
 
 
         Repartition.try1(d);
-        Output.out(d, "result.txt");
-
+        System.out.println("Blouh3");
+        Output.out(d, "/home/antoine/test.txt");
+        System.out.println("Blouh4");
         Optim.data = d;
         Optim.optim();
         d.print_grille();

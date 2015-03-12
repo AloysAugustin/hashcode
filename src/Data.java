@@ -1,5 +1,8 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -32,17 +35,20 @@ public class Data {
 
 
 
+
     public void remplirAleatoirement() throws Exception {
         System.out.println("Remplir Aléatoirement :");
-        for(int i = 0;i<num_serveurs;i++){
+        List<Serveur> servers = Arrays.asList(serveurs);
+        Random rnd = new Random();
+        while (!servers.isEmpty())
+        {
             java.util.Collections.shuffle(ordre);
             int k = 0;
-            while(k < rangees && !allouer(serveurs[i], ordre.get(k)))
+            while(k < rangees && !allouer(servers.get(rnd.nextInt(servers.size())), ordre.get(k)))
                 k++;
         }
 
     }
-
 
     private boolean allouer(Serveur s, int rangee){ //true si tout s'est bien passé, false sinon
         int k = 0;
@@ -90,7 +96,7 @@ public class Data {
             rangees = sc.nextInt();
             ordre = new ArrayList<Integer>(rangees);
             for(int i = 0;i < rangees;i++)
-                ordre.add(i,i);
+                ordre.set(i,i);
             emplacements = sc.nextInt();
             num_indispo = sc.nextInt();
             groupes = sc.nextInt();

@@ -1,5 +1,3 @@
-package hashcode;
-
 public class test_simon {
 
 	/**

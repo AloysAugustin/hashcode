@@ -59,15 +59,34 @@ public class Data {
             }
             serveurs = new Serveur[num_serveurs];
             for (int i = 0; i < num_serveurs; i ++) {
+                serveurs[i] = new Serveur();
                 serveurs[i].taille = sc.nextInt();
                 serveurs[i].capacite = sc.nextInt();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    public void print_grille() {
+        for (int r = 0; r < rangees; r ++) {
+            for (int e = 0; e < emplacements; e ++) {
+                System.out.print("" + grille[r][e] + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    public void test() {
+        read("1.in");
+        System.out.println("" + rangees + " rangees " + emplacements + " emplacements " + num_indispo + " empl. indispo " +
+                        groupes + " groupes " + num_serveurs + " serveurs.");
+        print_grille();
+        for (int i = 0; i < num_serveurs; i ++) {
+            System.out.println("C " + serveurs[i].capacite + " T " + serveurs[i].taille);
+        }
     }
 
 }

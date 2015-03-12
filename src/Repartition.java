@@ -11,9 +11,9 @@ import java.util.Collections;
  */
 public class Repartition {
 	
-    public void try1(Data d, Grid g) {
+    public static void try1(Data d) {
         HashMap<Integer, Integer[]> state; //cle: groupe (peut etre -1), valeur: puissance de calcul ds chaque ligne
-        state = buildState(d, g);
+        state = buildState(d);
 
         Integer[] puissancesRestantes = state.get(-1);
         
@@ -26,29 +26,39 @@ public class Repartition {
     /**
      * 
      * @param d : data
-     * @param g : grid
      * @return initialized state (0 to all groups except for the no-group)
      */
-    static HashMap<Integer, Integer[]> buildState(Data d, Grid g) {
+    static HashMap<Integer, Integer[]> buildState(Data d) {
     	HashMap<Integer, Integer[]> state = new HashMap<Integer, Integer[]> ();
-        state.put(-1, new Integer [d.rangees +1]);
+        Integer[] puissance = new Integer [d.rangees +1];
+        for (int i=0; i < d.rangees + 1; i++) {
+            puissance[i] = new Integer(0);
+        }
+        state.put(-1, puissance);
 
-        for (int i = 0; i < d.groupes; i++)
-        	state.put(i,  new Integer[d.rangees +1]);
+        for (int i = 0; i < d.groupes; i++) {
+             puissance = new Integer [d.rangees +1];
+            for (int j=0; j < d.rangees + 1; j++) {
+                puissance[j] = new Integer(0);
+            }
+            state.put(i, puissance);
+        }
         
         Integer[] puissances = state.get(-1);
+        System.out.println(state.get(-1)[3]);
         for (int r = 0; r < d.rangees; r ++) {
-            int puissance = 0;
+            int p = 0;
             for (int e = 0; e < d.emplacements;) {
-            	if (g != null) {
-            		puissance += d.serveurs[d.grille[r][e]].capacite;
+            	if (d.grille[r][e] >= 0) {
+            		p += d.serveurs[d.grille[r][e]].capacite;
             		e += d.serveurs[d.grille[r][e]].taille;
             	}
             	else e++;
             }
             
-            puissances[r] = puissance;
-            puissances[d.rangees] += puissance;
+            puissances[r] = p;
+            System.out.println(puissances[d.rangees]);
+            puissances[d.rangees] += p;
         }
         
         return state;

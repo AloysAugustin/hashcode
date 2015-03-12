@@ -39,6 +39,7 @@ public class Data {
     public void remplirAleatoirement() throws Exception {
         System.out.println("Remplir Aléatoirement :");
         List<Serveur> servers = Arrays.asList(serveurs);
+        java.util.Collections.shuffle(ordre);
         Random rnd = new Random();
         while (!servers.isEmpty())
         {

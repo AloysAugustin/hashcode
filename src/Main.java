@@ -17,6 +17,14 @@ public class Main {
 
         d.print_grille();
         System.out.println("Blouh 2");
-        Optim.data = d;
+
+        System.out.println("Rangees : " + d.rangees);
+        Repartition.try1(d);
+
+
+        //Optim.data = d;
+        //Optim.optim();
+        //Optim.data.print_grille();
+
     }
 }

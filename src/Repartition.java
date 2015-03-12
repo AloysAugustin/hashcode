@@ -65,18 +65,34 @@ public class Repartition {
     static void updateState (Grid g, HashMap<Integer, Integer[]> state, int rangee, int emplacement, int group) {
     	state.get(group)[rangee] += g.serveurs[rangee][emplacement].capacite;
     	state.get(-1)[rangee] -= g.serveurs[rangee][emplacement].capacite;
-    	state.get(-1)
+    	state.get(-1)[state.get(-1).length] += g.serveurs[rangee][emplacement].capacite;
     	g.serveurs[rangee][emplacement].groupe = group;
     }
     
+    /**
+     * Returns the group with the smallest minimal capacity
+     * @param state
+     * @param nbGroupes
+     * @return
+     */
     static int choisirGroupe(HashMap<Integer, Integer[]> state, int nbGroupes) {
     	int groupe = -1;
     	int minimum = Integer.MAX_VALUE;
     	for (int i=0; i<nbGroupes; i++) {
-    		int puissances = state.get(i);
-    		for (int j=0; j<puissances.length) {
-    			
+    		Integer[] puissances = state.get(i);
+    		
+    		int max = 0;
+    		for (int j=0; j<puissances.length -1; j++) {
+    			if (max < puissances[j])
+    				max = puissances[j];
+    		}
+    		
+    		if (minimum > puissances[puissances.length-1] - max) {
+    			minimum = puissances[puissances.length-1] - max;
+    			groupe = i;
     		}
     	}
+    	
+    	return groupe;
     }
 }

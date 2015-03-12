@@ -9,21 +9,7 @@ public class Data {
     public static final int DISPO = -1;
     public static final int INDISPO = -2;
 
-    class Serveur {
-        public Serveur() {
-            capacite = 0;
-            taille = 0;
-            groupe = -1;
-            rangee = -1;
-            position = -1;
-        }
 
-        int capacite;
-        int taille;
-        int groupe;
-        int rangee;
-        int position;
-    }
 
     int rangees;
     int emplacements;

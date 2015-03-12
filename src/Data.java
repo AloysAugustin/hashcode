@@ -67,7 +67,7 @@ public class Data {
         else
         {
             int k = 0;
-            while(k < s.taille && grille[rangee][emplacement + k] < 0)
+            while((k < s.taille) && (grille[rangee][emplacement + k] == Data.DISPO))
                 k++;
             if(k==s.taille){ //si aucun emplacement n'est occupé
                 s.rangee = rangee;

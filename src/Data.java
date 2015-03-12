@@ -44,7 +44,8 @@ public class Data {
         {
             java.util.Collections.shuffle(ordre);
             int k = 0;
-            while(k < rangees && !allouer(servers.get(rnd.nextInt(servers.size())), ordre.get(k)))
+            Serveur s = servers.remove(rnd.nextInt(servers.size()));
+            while(k < rangees && !allouer(s, ordre.get(k)))
                 k++;
         }
 

@@ -48,6 +48,7 @@ public class Data {
                 serveurs[i] = new Serveur();
                 serveurs[i].taille = sc.nextInt();
                 serveurs[i].capacite = sc.nextInt();
+                serveurs[i].numero = i;
                 serveurs[i].densite = (float) serveurs[i].capacite / (float) serveurs[i].taille;
             }
         } catch (Exception e) {

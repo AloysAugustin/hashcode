@@ -31,19 +31,19 @@ public class Grid {
             }
 
         }
-        ordre = new ArrayList<Integer>();
+        ordre = new ArrayList<Integer>(d.rangees);
         for(int i = 0;i < d.rangees;i++)
-            ordre.add(i);
+            ordre.add(i,i);
     }
 
 
     public void remplirAleatoirement() throws Exception {
+        System.out.println("Remplir Aléatoirement :");
         for(int i = 0;i<data.num_serveurs;i++){
             java.util.Collections.shuffle(ordre);
             int k = 0;
-            while(allouer(data.serveurs[i],ordre.get(k)) && k < data.rangees)
-                ;
-
+            while(k < data.rangees && !allouer(data.serveurs[i], ordre.get(k)))
+                k++;
         }
 
     }
@@ -51,7 +51,7 @@ public class Grid {
 
     private boolean allouer(Serveur s, int rangee){ //true si tout s'est bien passé, false sinon
         int k = 0;
-        while(!allouer(s, rangee, k) && k<data.emplacements)
+        while(k<data.emplacements && !allouer(s, rangee, k))
             k++;
         if(k==data.emplacements)
             return false;
@@ -60,12 +60,12 @@ public class Grid {
     }
 
     private boolean allouer(Serveur s, int rangee, int emplacement){ //true si tout s'est bien passé, false sinon
-        if(emplacement + s.taille >= data.emplacements)
+        if(emplacement + s.taille > data.emplacements)
             return false;
         else
         {
             int k = 0;
-            while(serveurs[rangee][emplacement + k] == null &&  k < s.taille && data.grille[rangee][emplacement+k] == -1)
+            while(k < s.taille && serveurs[rangee][emplacement + k] == null && data.grille[rangee][emplacement+k] == -1)
                 k++;
             if(k==s.taille){ //si aucun emplacement n'est occupé
                 s.rangee = rangee;
@@ -73,11 +73,13 @@ public class Grid {
                 for(k=0;k<s.taille;k++) {
                     serveurs[rangee][emplacement + k] = s;
                     data.grille[rangee][emplacement + k] = s.numero;
+                    //System.out.println(s.numero);
                 }
+                return true;
 
             }
             else
-                System.out.println("Impossible de mettre le serveur ici");
+                //System.out.println("Impossible de mettre le serveur ici");
                 return false;
 
 

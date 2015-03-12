@@ -95,4 +95,15 @@ public class Repartition {
     	
     	return groupe;
     }
+    
+    /**
+     * Tries to add a server on the smallest rows
+     * @param g
+     * @param state
+     * @param groupe
+     */
+    static void giveServer(Grid g, HashMap<Integer, Integer[]> state, int groupe) {
+    	Integer[] puissances = state.get(groupe);
+    	
+    }
 }

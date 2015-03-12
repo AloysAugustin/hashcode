@@ -44,7 +44,8 @@ public class Data {
         {
             java.util.Collections.shuffle(ordre);
             int k = 0;
-            while(k < rangees && !allouer(servers.get(rnd.nextInt(servers.size())), ordre.get(k)))
+            Serveur s = servers.remove(rnd.nextInt(servers.size()));
+            while(k < rangees && !allouer(s, ordre.get(k)))
                 k++;
         }
 
@@ -66,7 +67,7 @@ public class Data {
         else
         {
             int k = 0;
-            while(k < s.taille && grille[rangee][emplacement + k] < 0)
+            while((k < s.taille) && (grille[rangee][emplacement + k] == Data.DISPO))
                 k++;
             if(k==s.taille){ //si aucun emplacement n'est occupé
                 s.rangee = rangee;
@@ -96,7 +97,7 @@ public class Data {
             rangees = sc.nextInt();
             ordre = new ArrayList<Integer>(rangees);
             for(int i = 0;i < rangees;i++)
-                ordre.set(i,i);
+                ordre.add(i,i);
             emplacements = sc.nextInt();
             num_indispo = sc.nextInt();
             groupes = sc.nextInt();

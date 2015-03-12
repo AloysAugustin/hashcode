@@ -150,8 +150,14 @@ public class Optim {
 					sstart = i;
 				} else {
 					int free = 1;
-					while (data.grille[l][i + free] == Data.DISPO)
+					while (true)
+					{
+						if (i + free == data.emplacements)
+							break;
+						if (data.grille[l][i + free] != Data.DISPO)
+							break;
 						++free;
+					}
 					int pos = sstart;
 					repLoop: while (free > 0)
 					{

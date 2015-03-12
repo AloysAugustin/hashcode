@@ -21,10 +21,8 @@ public class Main {
         System.out.println("Rangees : " + d.rangees);
         Repartition.try1(d);
 
-
-        //Optim.data = d;
-        //Optim.optim();
-        //Optim.data.print_grille();
-
+        Optim.data = d;
+        Optim.optim();
+        d.print_grille();
     }
 }

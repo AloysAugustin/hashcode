@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,10 +19,71 @@ public class Data {
     int num_serveurs;
     Serveur[] serveurs;
     int[][] grille;
+    //Serveur serveurs[][];
+    Serveur serveurIndisponible = new Serveur(); //correspond aux emplacements pris par un serveur vide
+
+
+    ArrayList<Integer> ordre;
 
 
     public Data() {
+        ordre = new ArrayList<Integer>(rangees);
+        for(int i = 0;i < rangees;i++)
+            ordre.add(i,i);
     }
+
+
+
+    public void remplirAleatoirement() throws Exception {
+        System.out.println("Remplir Aléatoirement :");
+        for(int i = 0;i<num_serveurs;i++){
+            java.util.Collections.shuffle(ordre);
+            int k = 0;
+            while(k < rangees && !allouer(serveurs[i], ordre.get(k)))
+                k++;
+        }
+
+    }
+
+
+    private boolean allouer(Serveur s, int rangee){ //true si tout s'est bien passé, false sinon
+        int k = 0;
+        while(k<emplacements && !allouer(s, rangee, k))
+            k++;
+        if(k==emplacements)
+            return false;
+        else
+            return true;
+    }
+
+    private boolean allouer(Serveur s, int rangee, int emplacement){ //true si tout s'est bien passé, false sinon
+        if(emplacement + s.taille > emplacements)
+            return false;
+        else
+        {
+            int k = 0;
+            while(k < s.taille && grille[rangee][emplacement + k] < 0)
+                k++;
+            if(k==s.taille){ //si aucun emplacement n'est occupé
+                s.rangee = rangee;
+                s.position = emplacement;
+                for(k=0;k<s.taille;k++) {
+                    grille[rangee][emplacement + k] = s.numero;
+                    //System.out.println(s.numero);
+                }
+                return true;
+
+            }
+            else
+                //System.out.println("Impossible de mettre le serveur ici");
+                return false;
+
+
+
+        }
+    }
+
+
 
     public boolean read(String filename) {
         File f = new File(filename);

@@ -7,13 +7,16 @@ public class Main {
         Data d = new Data();
         d.test();
         d.print_grille();
-        Grid grille = new Grid(d);
+
         try {
-            grille.remplirAleatoirement();
+            d.remplirAleatoirement();
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("Blouh");
-        grille.data.print_grille();
+
+        d.print_grille();
+        System.out.println("Blouh 2");
+        Optim.data = d;
     }
 }

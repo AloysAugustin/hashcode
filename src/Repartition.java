@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Collections;
 
@@ -104,6 +106,40 @@ public class Repartition {
      */
     static void giveServer(Grid g, HashMap<Integer, Integer[]> state, int groupe) {
     	Integer[] puissances = state.get(groupe);
+    	Integer[] puissanceLibre = state.get(-1);
+    	Integer[] rangees = argsort(puissances);
+    	Serveur serveur;
+    	int r = 0;
+    	int indexe;
+    	for (r=0; r<rangees.length; r++) {
+    		if (puissanceLibre[r] > 0) {
+    			serveur = g.serveurs[r][0];
+    			indexe = 0;
+    			while (serveur == null || serveur.groupe != -1) {
+    				if (serveur == null)
+    					indexe ++;
+    				else
+    					indexe += serveur.taille;
+    			}   			
+    			break;
+    		}
+    	}
     	
+    	updateState(g, state, r, indexe, groupe);
     }
+    
+ 
+    public static Integer[] argsort(final Integer[] a) {
+        Integer[] indexes = new Integer[a.length];
+        for (int i = 0; i < indexes.length; i++) {
+            indexes[i] = i;
+        }
+        Arrays.sort(indexes, new Comparator<Integer>() {
+            public int compare(Integer i1, Integer i2) {
+                return Float.compare(a[i1], a[i2]);
+            }
+        });
+        return indexes;
+    }
+
 }

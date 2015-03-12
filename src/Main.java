@@ -6,5 +6,11 @@ public class Main {
         System.out.println("Hello !");
         Data d = new Data();
         d.test();
+        Grid grille = new Grid(d);
+        try {
+            grille.remplirAleatoirement();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

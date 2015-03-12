@@ -1,5 +1,3 @@
-package hashcode;
-
 public class Antoine {
     public String nom = "Antoine";
 

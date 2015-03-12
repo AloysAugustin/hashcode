@@ -87,6 +87,18 @@ public class Data {
         }
     }
 
+    public void reset() {
+        for (int i = 0; i < num_serveurs; i ++) {
+            serveurs[i].groupe = -1;
+            serveurs[i].position = -1;
+            serveurs[i].rangee = -1;
+        }
+        for (int i = 0; i < rangees; i ++) {
+            for (int j = 0; j < emplacements; j ++) {
+                if (grille[i][j] >=0) grille[i][j] = DISPO;
+            }
+        }
+    }
 
 
     public boolean read(String filename) {

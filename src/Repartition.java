@@ -16,15 +16,10 @@ public class Repartition {
         state = buildState(d, g);
 
         Integer[] puissancesRestantes = state.get(-1);
-        int puissanceRestanteTotale = 0;
         
-        for (int i=0; i<puissancesRestantes.length; i++) {
-        	puissanceRestanteTotale += puissancesRestantes[i];
-        }
-        
-        while (puissanceRestanteTotale > 0) {
+        while (puissancesRestantes[puissancesRestantes.length-1] > 0) {
         	int groupe = choisirGroupe(state, d.groupes);
-        	giveServer (g, state, groupe);
+        	giveServer (d, state, groupe);
         }
     }
 
@@ -46,8 +41,8 @@ public class Repartition {
             int puissance = 0;
             for (int e = 0; e < d.emplacements;) {
             	if (g != null) {
-            		puissance += g.serveurs[r][e].capacite;
-            		e += g.serveurs[r][e].taille;
+            		puissance += d.serveurs[d.grille[r][e]].capacite;
+            		e += d.serveurs[d.grille[r][e]].taille;
             	}
             	else e++;
             }
@@ -64,11 +59,12 @@ public class Repartition {
      * Update state when assign the server at rangee, emplacement to the group
      * Must be valid groups
      */
-    static void updateState (Grid g, HashMap<Integer, Integer[]> state, int rangee, int emplacement, int group) {
-    	state.get(group)[rangee] += g.serveurs[rangee][emplacement].capacite;
-    	state.get(-1)[rangee] -= g.serveurs[rangee][emplacement].capacite;
-    	state.get(-1)[state.get(-1).length] += g.serveurs[rangee][emplacement].capacite;
-    	g.serveurs[rangee][emplacement].groupe = group;
+    static void updateState (Data d, HashMap<Integer, Integer[]> state, int rangee, int emplacement, int group) {
+    	state.get(group)[rangee] += d.serveurs[d.grille[rangee][emplacement]].capacite;
+        state.get(group)[state.get(-1).length - 1] += d.serveurs[d.grille[rangee][emplacement]].capacite;
+        state.get(-1)[rangee] -= d.serveurs[d.grille[rangee][emplacement]].capacite;
+    	state.get(-1)[state.get(-1).length - 1] -= d.serveurs[d.grille[rangee][emplacement]].capacite;
+        d.serveurs[d.grille[rangee][emplacement]].groupe = group;
     }
     
     /**
@@ -100,20 +96,20 @@ public class Repartition {
     
     /**
      * Tries to add a server on the smallest rows
-     * @param g
+     * @param d
      * @param state
      * @param groupe
      */
-    static void giveServer(Grid g, HashMap<Integer, Integer[]> state, int groupe) {
+    static void giveServer(Data d, HashMap<Integer, Integer[]> state, int groupe) {
     	Integer[] puissances = state.get(groupe);
     	Integer[] puissanceLibre = state.get(-1);
     	Integer[] rangees = argsort(puissances);
     	Serveur serveur;
     	int r = 0;
-    	int indexe;
+    	int indexe =0;
     	for (r=0; r<rangees.length; r++) {
     		if (puissanceLibre[r] > 0) {
-    			serveur = g.serveurs[r][0];
+    			serveur = d.serveurs[d.grille[r][0]];
     			indexe = 0;
     			while (serveur == null || serveur.groupe != -1) {
     				if (serveur == null)
@@ -125,7 +121,7 @@ public class Repartition {
     		}
     	}
     	
-    	updateState(g, state, r, indexe, groupe);
+    	updateState(d, state, r, indexe, groupe);
     }
     
  

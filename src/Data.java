@@ -27,9 +27,7 @@ public class Data {
 
 
     public Data() {
-        ordre = new ArrayList<Integer>(rangees);
-        for(int i = 0;i < rangees;i++)
-            ordre.add(i,i);
+
     }
 
 
@@ -69,7 +67,7 @@ public class Data {
                 s.position = emplacement;
                 for(k=0;k<s.taille;k++) {
                     grille[rangee][emplacement + k] = s.numero;
-                    //System.out.println(s.numero);
+                    System.out.println(s.numero);
                 }
                 return true;
 
@@ -90,6 +88,9 @@ public class Data {
         try {
             Scanner sc = new Scanner(f);
             rangees = sc.nextInt();
+            ordre = new ArrayList<Integer>(rangees);
+            for(int i = 0;i < rangees;i++)
+                ordre.add(i,i);
             emplacements = sc.nextInt();
             num_indispo = sc.nextInt();
             groupes = sc.nextInt();

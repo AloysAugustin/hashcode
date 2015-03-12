@@ -97,7 +97,7 @@ public class Data {
             rangees = sc.nextInt();
             ordre = new ArrayList<Integer>(rangees);
             for(int i = 0;i < rangees;i++)
-                ordre.set(i,i);
+                ordre.add(i,i);
             emplacements = sc.nextInt();
             num_indispo = sc.nextInt();
             groupes = sc.nextInt();

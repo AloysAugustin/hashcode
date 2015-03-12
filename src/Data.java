@@ -80,13 +80,13 @@ public class Data {
     }
 
     public void test() {
-        read("1.in");
+        read("dc.in");
         System.out.println("" + rangees + " rangees " + emplacements + " emplacements " + num_indispo + " empl. indispo " +
                         groupes + " groupes " + num_serveurs + " serveurs.");
-        print_grille();
+        /*print_grille();
         for (int i = 0; i < num_serveurs; i ++) {
             System.out.println("C " + serveurs[i].capacite + " T " + serveurs[i].taille);
-        }
+        }*/
     }
 
 }
